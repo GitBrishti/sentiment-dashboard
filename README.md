@@ -47,20 +47,6 @@ It helps understand market perception of companies like:
 
 ---
 
-## Project Structure
-
-sentiment-dashboard/
-│
-├── app.py # Main Streamlit application
-├── sentiment.py # Sentiment analysis logic
-├── data_news.py # News data fetching module
-├── requirements.txt # Dependencies
-└── README.md # Project documentation
-
-
----
-
----
 
 ##  Installation & Setup
 
