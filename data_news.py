@@ -11,7 +11,13 @@ def get_news(query):
     articles = []
 
     for article in data.get("articles", []):
-        text = article.get("title", "") + " " + article.get("description", "")
-        articles.append(text)
 
-    return articles
+       title = article.get("title") or ""
+       description = article.get("description") or ""
+
+       text = title + " " + description
+
+    if text.strip():
+       articles.append(text)
+
+return articles

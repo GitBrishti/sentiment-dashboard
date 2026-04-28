@@ -16,6 +16,9 @@ query = st.text_input("Enter stock or brand name")
 if st.button("Analyze"):
 
     texts = get_news(query)
+    if not texts:
+       st.error("No news found for this keyword. Try another stock or brand.")
+       st.stop()
     st.success(f"Fetched {len(texts)} articles successfully ")
 
     results = []
