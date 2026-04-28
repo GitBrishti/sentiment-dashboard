@@ -65,7 +65,7 @@ sentiment-dashboard/
 ##  Installation & Setup
 
 ### 1. Clone the repository
-``` bash
+
 git clone https://github.com/your-username/sentiment-dashboard.git
 cd sentiment-dashboard
 
