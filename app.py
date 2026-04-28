@@ -12,18 +12,37 @@ from data_news import get_news
 st.set_page_config(page_title="Sentiment Dashboard", layout="wide")
 
 # -------------------------------
-# UI HEADER
+# HEADER
 # -------------------------------
-st.title("📊 Real-Time Sentiment Analysis Dashboard")
-st.markdown("Analyze stock & brand sentiment using live news + NLP 🚀")
+st.title(" Real-Time Sentiment Analysis Dashboard")
+st.markdown("Analyze stock & brand sentiment using live news + NLP")
 
-st.sidebar.title("📊 Dashboard Controls")
-query = st.sidebar.text_input("Enter stock or brand name")
+# -------------------------------
+# INPUT (MAIN AREA - CENTERED)
+# -------------------------------
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    query = st.text_input(" Enter stock or brand name")
+    search = st.button("Analyze")
+
+# -------------------------------
+# SIDEBAR (INFO ONLY)
+# -------------------------------
+st.sidebar.title(" Dashboard Info")
+st.sidebar.markdown("""
+This dashboard analyzes sentiment from live news articles.
+
+**How to use:**
+1. Enter a stock or brand name  
+2. Click Analyze  
+3. View sentiment insights  
+""")
 
 # -------------------------------
 # MAIN LOGIC
 # -------------------------------
-if query:
+if search and query:
 
     # Fetch news
     texts = get_news(query)
@@ -47,28 +66,37 @@ if query:
     # -------------------------------
     # VISUALIZATION
     # -------------------------------
-
     col1, col2 = st.columns(2)
 
     # Bar chart
     with col1:
         st.subheader("Sentiment Distribution")
-        sns.countplot(data=df, x="Sentiment")
-        st.pyplot(plt)
+        fig1, ax1 = plt.subplots()
+        sns.countplot(data=df, x="Sentiment", ax=ax1)
+        st.pyplot(fig1)
 
     # Pie chart
     with col2:
         st.subheader("Sentiment Share")
-        df["Sentiment"].value_counts().plot.pie(autopct="%1.1f%%")
-        st.pyplot(plt)
+        fig2, ax2 = plt.subplots()
+        df["Sentiment"].value_counts().plot.pie(
+            autopct="%1.1f%%",
+            colors=["#4CAF50", "#FFC107", "#F44336"],
+            ax=ax2
+        )
+        ax2.set_ylabel("")
+        st.pyplot(fig2)
 
     # Line chart
     st.subheader("Sentiment Score Trend")
     st.line_chart(df["Score"])
 
-    # Show data
+    # Raw data
     st.subheader("Raw Data")
     st.dataframe(df)
 
+elif search and not query:
+    st.warning("Please enter a stock or brand name.")
+
 else:
-    st.info("Enter a stock or brand name in the sidebar to begin analysis.")
+    st.info("Enter a stock or brand name and click Analyze to begin.")
