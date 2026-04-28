@@ -1,23 +1,29 @@
 import requests
+import streamlit as st
 
-API_KEY = "1f110320d93749fc9f88d2817b46d4c2"
+# Get API key from Streamlit secrets
+API_KEY = st.secrets["1f110320d93749fc9f88d2817b46d4c2"]
 
 def get_news(query):
     url = f"https://newsapi.org/v2/everything?q={query}&language=en&pageSize=20&apiKey={API_KEY}"
-    
-    response = requests.get(url)
-    data = response.json()
+
+    try:
+        response = requests.get(url)
+        data = response.json()
+    except Exception:
+        return []
 
     articles = []
 
     for article in data.get("articles", []):
+        # Handle None values safely
+        title = article.get("title") or ""
+        description = article.get("description") or ""
 
-       title = article.get("title") or ""
-       description = article.get("description") or ""
+        text = title + " " + description
 
-       text = title + " " + description
+        # Avoid empty strings
+        if text.strip():
+            articles.append(text)
 
-    if text.strip():
-       articles.append(text)
-
-return articles
+    return articles
