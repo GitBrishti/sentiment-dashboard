@@ -2,8 +2,7 @@ import requests
 import streamlit as st
 
 # Get API key from Streamlit secrets
-API_KEY = st.secrets["1f110320d93749fc9f88d2817b46d4c2"]
-
+API_KEY = st.secrets["NEWS_API_KEY"]
 def get_news(query):
     url = f"https://newsapi.org/v2/everything?q={query}&language=en&pageSize=20&apiKey={API_KEY}"
 
