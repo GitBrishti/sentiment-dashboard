@@ -5,7 +5,7 @@ A real-time web-based sentiment analysis dashboard built using **Python and Stre
 ---
 
 ##  Live Demo
- Coming soon!!
+ https://sentiment-dashboard-ig5xmfw3r6hhratvughmbm.streamlit.app/
 
 ---
 
